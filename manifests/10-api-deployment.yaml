@@ -1,22 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: api
   labels:
     app: api
-  name: api
+    tier: backend
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: api
-  strategy: {}
+      tier: backend
   template:
     metadata:
       labels:
         app: api
+        tier: backend
     spec:
       containers:
-      - image: ghcr.io/stefanprodan/podinfo:6.6.0
-        name: podinfo
-        resources: {}
-status: {}
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.5.4
+          ports:
+            - containerPort: 9898
